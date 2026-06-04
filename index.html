@@ -1,1 +1,370 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Dubai Salary Calculator</title></head><body><h1>Working!</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dubai Salary Calculator — How Much Can You Really Save? (India → UAE)</title>
+<meta name="description" content="Free Dubai salary calculator for Indians moving to the UAE. Enter your AED salary to see your tax-free take-home, monthly savings in INR, and end-of-service gratuity.">
+<link rel="canonical" href="https://moveabroadcalculator.com/">
+<meta property="og:title" content="Dubai Salary Calculator — India to UAE">
+<meta property="og:description" content="See your tax-free take-home, monthly savings in INR, and gratuity for any Dubai salary.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moveabroadcalculator.com/">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF5EC;
+    --paper:#FFFFFF;
+    --ink:#1B1813;
+    --ink-soft:#5C564B;
+    --line:#E7DECB;
+    --green:#0F7A5C;
+    --green-soft:#E6F2ED;
+    --gold:#C8941F;
+    --gold-soft:#F7ECD4;
+    --red:#B0432F;
+    --shadow:0 1px 2px rgba(27,24,19,.04),0 8px 28px rgba(27,24,19,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Hanken Grotesque',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(1200px 500px at 100% -10%,var(--gold-soft),transparent 60%),
+               radial-gradient(900px 500px at -10% 110%,var(--green-soft),transparent 55%);
+    opacity:.7;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.08;letter-spacing:-.02em}
+
+  /* header */
+  header{padding:18px 0 4px}
+  .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
+  nav a{font-size:13px;color:var(--ink-soft);text-decoration:none;margin-left:14px}
+  nav a:hover{color:var(--ink)}
+  @media(max-width:520px){nav a{margin-left:10px;font-size:12px}}
+
+  /* hero */
+  .hero{padding:30px 0 18px}
+  .kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);padding:5px 11px;border-radius:100px}
+  .hero h1{font-size:clamp(31px,8vw,46px);font-weight:800;margin:14px 0 10px}
+  .hero h1 em{font-style:normal;color:var(--green)}
+  .hero p{font-size:16px;color:var(--ink-soft);max-width:34ch}
+
+  /* card */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;margin:18px 0}
+  .card h2{font-size:20px;font-weight:700;margin-bottom:4px}
+  .card .sub{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px}
+
+  label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin:14px 0 6px}
+  label .hint{font-weight:500;color:var(--ink-soft)}
+  .inputrow{position:relative}
+  .pre{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--ink-soft);font-size:15px;pointer-events:none}
+  input[type=number]{
+    width:100%;font-family:inherit;font-size:17px;font-weight:600;color:var(--ink);
+    padding:13px 14px 13px 46px;border:1.5px solid var(--line);border-radius:12px;background:#FCFAF4;
+    appearance:none;-moz-appearance:textfield;
+  }
+  input.nopre{padding-left:14px}
+  input:focus{outline:none;border-color:var(--green);background:#fff;box-shadow:0 0 0 3px var(--green-soft)}
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{font-family:inherit;font-size:13.5px;font-weight:700;border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:8px 13px;border-radius:100px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--gold)}
+  .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:460px){.grid2{grid-template-columns:1fr}}
+
+  details.costs{margin-top:16px;border:1px dashed var(--line);border-radius:12px;padding:0 14px;background:#FCFAF4}
+  details.costs summary{cursor:pointer;list-style:none;padding:13px 0;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+  details.costs summary::-webkit-details-marker{display:none}
+  details.costs summary .tot{color:var(--ink-soft);font-weight:600}
+  details.costs[open] summary{border-bottom:1px solid var(--line)}
+  .costbody{padding:6px 0 14px}
+
+  /* result */
+  .result{background:linear-gradient(155deg,#13362B,#0F7A5C);color:#fff;border:none}
+  .result h2{color:#fff}
+  .result .sub{color:rgba(255,255,255,.7)}
+  .bignum{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(36px,11vw,54px);line-height:1;margin:6px 0 2px;letter-spacing:-.03em}
+  .bignum.neg{color:#FFD9C9}
+  .bigcap{font-size:13px;color:rgba(255,255,255,.72);font-weight:600}
+  .rrow{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-top:1px solid rgba(255,255,255,.14);font-size:14.5px}
+  .rrow:first-of-type{border-top:1px solid rgba(255,255,255,.22);margin-top:18px}
+  .rrow .k{color:rgba(255,255,255,.8)}
+  .rrow .v{font-weight:700;text-align:right}
+  .rrow .v small{font-weight:500;color:rgba(255,255,255,.6);display:block;font-size:11.5px}
+
+  .verdict{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:15px;margin-top:18px}
+  .verdict .tag{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#FFE6B0}
+  .verdict p{margin-top:6px;font-size:15px;line-height:1.5}
+  .verdict strong{color:#FFE6B0}
+
+  .share{display:flex;width:100%;justify-content:center;align-items:center;gap:9px;margin-top:16px;background:#25D366;color:#08331c;font-family:inherit;font-weight:800;font-size:15.5px;border:none;border-radius:12px;padding:14px;cursor:pointer;text-decoration:none}
+  .share:active{transform:translateY(1px)}
+  .share svg{width:20px;height:20px}
+
+  /* affiliate */
+  .aff h2{font-size:20px;font-weight:700}
+  .afflist{display:flex;flex-direction:column;gap:11px;margin-top:14px}
+  .affcard{display:flex;align-items:center;gap:13px;border:1.5px solid var(--line);border-radius:14px;padding:14px;text-decoration:none;color:var(--ink);transition:.15s;background:#fff}
+  .affcard:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:var(--shadow)}
+  .afficon{flex:0 0 44px;height:44px;border-radius:11px;display:grid;place-items:center;font-size:22px}
+  .affcard .t{font-weight:700;font-size:15px}
+  .affcard .d{font-size:12.5px;color:var(--ink-soft)}
+  .affcard .arrow{margin-left:auto;color:var(--gold);font-weight:800}
+  .affnote{font-size:11.5px;color:var(--ink-soft);margin-top:12px;text-align:center}
+
+  /* faq */
+  .faq details{border-bottom:1px solid var(--line);padding:14px 0}
+  .faq summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--gold);font-weight:800}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{font-size:14px;color:var(--ink-soft);margin-top:9px}
+
+  /* ad slot */
+  .adslot{border:1px dashed var(--line);border-radius:14px;min-height:90px;display:grid;place-items:center;color:#C7BCA4;font-size:12px;margin:18px 0;background:#FCFAF4}
+
+  footer{border-top:1px solid var(--line);margin-top:26px;padding:24px 0 40px;font-size:13px;color:var(--ink-soft)}
+  footer a{color:var(--ink-soft)}
+  footer .flinks{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px}
+  footer .flinks a{font-weight:600;text-decoration:none}
+  .disc{font-size:11.5px;line-height:1.5;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <a class="logo" href="/"><span class="dot"></span>MoveAbroad</a>
+      <nav>
+        <a href="/about/">About</a>
+        <a href="/disclaimer/">Disclosure</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="kicker">India → UAE · 2026</span>
+    <h1>Dubai pe <em>kitna bachega?</em></h1>
+    <p>Enter your AED salary and see your real tax-free take-home, monthly savings in INR, and end-of-service gratuity.</p>
+  </section>
+
+  <!-- INPUT CARD -->
+  <div class="card">
+    <h2>Your Dubai offer</h2>
+    <p class="sub">UAE has no personal income tax, so your take-home is your full salary.</p>
+
+    <label>Monthly salary <span class="hint">(AED)</span></label>
+    <div class="inputrow">
+      <span class="pre">AED</span>
+      <input type="number" id="salary" value="15000" min="0" inputmode="numeric">
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip" data-v="8000">8k</button>
+      <button class="chip" data-v="10000">10k</button>
+      <button class="chip active" data-v="15000">15k</button>
+      <button class="chip" data-v="20000">20k</button>
+      <button class="chip" data-v="25000">25k</button>
+      <button class="chip" data-v="35000">35k</button>
+    </div>
+
+    <div class="grid2" style="margin-top:6px">
+      <div>
+        <label>Years you'll work</label>
+        <div class="inputrow"><input class="nopre" type="number" id="years" value="2" min="0" step="0.5" inputmode="decimal"></div>
+      </div>
+      <div>
+        <label>AED → INR rate <span class="hint">(edit)</span></label>
+        <div class="inputrow"><input class="nopre" type="number" id="rate" value="23.50" min="0" step="0.01" inputmode="decimal"></div>
+      </div>
+    </div>
+
+    <label>Your current India salary <span class="hint">(₹ / month — for comparison)</span></label>
+    <div class="inputrow">
+      <span class="pre">₹</span>
+      <input type="number" id="india" value="40000" min="0" inputmode="numeric">
+    </div>
+
+    <details class="costs">
+      <summary><span>Dubai monthly costs</span> <span class="tot" id="costTot">AED 4,750</span></summary>
+      <div class="costbody">
+        <div class="grid2">
+          <div><label>Rent / room</label><div class="inputrow"><input class="nopre cost" type="number" id="c_rent" value="2200" inputmode="numeric"></div></div>
+          <div><label>Food &amp; groceries</label><div class="inputrow"><input class="nopre cost" type="number" id="c_food" value="1000" inputmode="numeric"></div></div>
+          <div><label>Transport</label><div class="inputrow"><input class="nopre cost" type="number" id="c_trans" value="350" inputmode="numeric"></div></div>
+          <div><label>Utilities + phone</label><div class="inputrow"><input class="nopre cost" type="number" id="c_util" value="500" inputmode="numeric"></div></div>
+          <div><label>Personal / leisure</label><div class="inputrow"><input class="nopre cost" type="number" id="c_misc" value="700" inputmode="numeric"></div></div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="card result">
+    <h2>You can save</h2>
+    <p class="sub">After all Dubai living costs, every month</p>
+    <div class="bignum" id="saveINR">₹2,98,750</div>
+    <div class="bigcap" id="saveAED">AED 10,250 / month</div>
+
+    <div class="rrow"><span class="k">Annual savings</span><span class="v" id="annual">₹35,85,000</span></div>
+    <div class="rrow"><span class="k">End-of-service gratuity</span><span class="v" id="gratuity">₹4,23,000<small id="gratuityAED">AED 18,000</small></span></div>
+    <div class="rrow"><span class="k">Take-home (tax-free)</span><span class="v" id="takehome">AED 15,000<small id="takehomeINR">₹3,52,500</small></span></div>
+
+    <div class="verdict">
+      <span class="tag">Verdict</span>
+      <p id="verdict">…</p>
+    </div>
+
+    <a class="share" id="waShare" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.3A10 10 0 1 0 12 2"/></svg>
+      WhatsApp pe bhejo
+    </a>
+  </div>
+
+  <!-- AD SLOT -->
+  <div class="adslot">Ad slot — paste AdSense code here after approval</div>
+
+  <!-- AFFILIATE CARD -->
+  <div class="card aff">
+    <h2>Before you move 🧳</h2>
+    <p class="sub">Set these up before your flight — most accept Indians from day one.</p>
+    <div class="afflist">
+      <!-- TODO: replace href="#" with your affiliate links -->
+      <a class="affcard" href="#" id="aff_send" rel="sponsored nofollow" target="_blank">
+        <span class="afficon" style="background:var(--green-soft)">💸</span>
+        <span><span class="t">Send money home cheaply</span><span class="d">Wise / Remitly — better AED→INR rates than banks</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="affcard" href="#" id="aff_bank" rel="sponsored nofollow" target="_blank">
+        <span class="afficon" style="background:var(--gold-soft)">🏦</span>
+        <span><span class="t">Open a UAE bank account</span><span class="d">Digital accounts you can start before landing</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="affcard" href="#" id="aff_sim" rel="sponsored nofollow" target="_blank">
+        <span class="afficon" style="background:#EAEFF7">📶</span>
+        <span><span class="t">UAE eSIM for landing</span><span class="d">Airalo — data the minute you land, no roaming bill</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <p class="affnote">Some links are affiliate links. We may earn a commission at no extra cost to you. See our <a href="/disclaimer/">disclosure</a>.</p>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card faq">
+    <h2 style="margin-bottom:6px">Common questions</h2>
+    <details><summary>Is salary in Dubai really tax-free?</summary><p>Yes. The UAE charges no personal income tax on salaries, so your monthly take-home equals your full gross pay. Your real savings depend mostly on rent and lifestyle, which is what this calculator estimates.</p></details>
+    <details><summary>How is gratuity (end-of-service) calculated?</summary><p>Under UAE labour law you earn roughly 21 days of basic salary for each of your first 5 years, and 30 days per year after that, capped at two years' total pay. We assume your basic salary is about 60% of your gross, which is typical — adjust your figures if your contract differs.</p></details>
+    <details><summary>What AED to INR rate should I use?</summary><p>The rate moves daily and currently sits near ₹23–24 per AED. We default to 23.50 and let you edit it. For sending money, transfer services usually beat the bank's rate.</p></details>
+    <details><summary>Are the living costs accurate?</summary><p>They're editable estimates for a single person sharing accommodation and living carefully. Families, solo flats, or a fancier lifestyle will cost more — change the numbers to match your plan.</p></details>
+  </div>
+
+  <footer>
+    <div class="flinks">
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/disclaimer/">Disclaimer</a>
+    </div>
+    <p class="disc">This calculator provides general estimates for informational purposes only and is not financial, tax, legal, or immigration advice. Figures are approximate and depend on your contract, lifestyle, and exchange rates. Always verify with official sources and a qualified advisor before making decisions.</p>
+    <p class="disc">© <span id="yr"></span> MoveAbroadCalculator.com</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var fmt=function(n){return Math.round(n).toLocaleString('en-IN')};
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  var els={
+    salary:$('salary'),years:$('years'),rate:$('rate'),india:$('india'),
+    rent:$('c_rent'),food:$('c_food'),trans:$('c_trans'),util:$('c_util'),misc:$('c_misc')
+  };
+  var num=function(el){var v=parseFloat(el.value);return isNaN(v)||v<0?0:v};
+
+  function calc(){
+    var gross=num(els.salary), years=num(els.years), rate=num(els.rate)||0, india=num(els.india);
+    var costs=num(els.rent)+num(els.food)+num(els.trans)+num(els.util)+num(els.misc);
+    $('costTot').textContent='AED '+fmt(costs);
+
+    var takehome=gross; // UAE = no income tax
+    var saveAED=takehome-costs;
+    var saveINR=saveAED*rate;
+    var annualINR=saveINR*12;
+
+    // gratuity: basic = 60% of gross, daily = basic/30
+    var basic=gross*0.6, daily=basic/30, days;
+    if(years<=5){days=21*years;}else{days=21*5+30*(years-5);}
+    var grat=daily*days;
+    var cap=gross*24; if(grat>cap)grat=cap;
+    var gratINR=grat*rate;
+
+    // render
+    var bn=$('saveINR');
+    bn.textContent=(saveINR<0?'–₹':'₹')+fmt(Math.abs(saveINR));
+    bn.className='bignum'+(saveINR<0?' neg':'');
+    $('saveAED').textContent='AED '+fmt(saveAED)+' / month';
+    $('annual').textContent=(annualINR<0?'–₹':'₹')+fmt(Math.abs(annualINR));
+    $('gratuity').innerHTML='₹'+fmt(gratINR)+'<small>AED '+fmt(grat)+'</small>';
+    $('takehome').innerHTML='AED '+fmt(takehome)+'<small>₹'+fmt(takehome*rate)+'</small>';
+
+    // verdict
+    var v=$('verdict'), t;
+    if(saveAED<=0){
+      t='With this salary and these costs, there is <strong>little or nothing left to save</strong> each month. Try a higher salary, lower rent, or a shared setup to see the difference.';
+    }else if(india<=0){
+      t='You could save about <strong>₹'+fmt(saveINR)+' every month</strong> — roughly <strong>₹'+fmt(annualINR)+' a year</strong>. Add your current India salary above to see how it compares.';
+    }else{
+      var ratio=saveINR/india;
+      if(ratio>=2){
+        t='Strong move. Your <strong>monthly Dubai savings alone</strong> are about <strong>'+ratio.toFixed(1)+'×</strong> your entire current India salary of ₹'+fmt(india)+'. That is roughly <strong>₹'+fmt(annualINR)+' saved per year</strong>.';
+      }else if(ratio>=1){
+        t='Solid. After all costs you can save around <strong>₹'+fmt(saveINR)+'/month</strong> — more than your whole India salary of ₹'+fmt(india)+'. Annual savings ≈ <strong>₹'+fmt(annualINR)+'</strong>.';
+      }else if(ratio>=0.5){
+        t='Decent. Your monthly Dubai savings (₹'+fmt(saveINR)+') equal about <strong>'+Math.round(ratio*100)+'%</strong> of your current India salary. Worth it if you also value the experience and gratuity.';
+      }else{
+        t='Tight. At this salary you would save roughly <strong>₹'+fmt(saveINR)+'/month</strong>, only about '+Math.round(ratio*100)+'% of your India pay. Negotiate higher or cut rent before deciding.';
+      }
+    }
+    v.innerHTML=t;
+
+    // whatsapp
+    var msg='I checked how much I can save in Dubai 🇦🇪\n\nSalary: AED '+fmt(gross)+'\nMonthly savings: ₹'+fmt(saveINR)+'\nPer year: ₹'+fmt(annualINR)+'\n\nCheck yours 👉 https://moveabroadcalculator.com';
+    $('waShare').href='https://wa.me/?text='+encodeURIComponent(msg);
+  }
+
+  // chips
+  var chips=document.querySelectorAll('#chips .chip');
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.classList.remove('active')});
+    c.classList.add('active');
+    els.salary.value=c.dataset.v;calc();
+  })});
+  // clear chip highlight on manual typing
+  els.salary.addEventListener('input',function(){
+    chips.forEach(function(x){x.classList.toggle('active',x.dataset.v===els.salary.value)});
+  });
+
+  Object.keys(els).forEach(function(k){els[k].addEventListener('input',calc)});
+  calc();
+})();
+</script>
+</body>
+</html>
+

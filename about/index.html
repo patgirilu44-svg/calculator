@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — MoveAbroadCalculator.com</title>
+<meta name="description" content="About MoveAbroadCalculator.com — a free salary calculator helping Indians estimate their savings when moving to the UAE.">
+<link rel="canonical" href="https://moveabroadcalculator.com/about/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--cream:#FAF5EC;--paper:#FFF;--ink:#1B1813;--ink-soft:#5C564B;--line:#E7DECB;--green:#0F7A5C;--gold:#C8941F;--gold-soft:#F7ECD4;--green-soft:#E6F2ED;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Hanken Grotesque',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(1200px 500px at 100% -10%,var(--gold-soft),transparent 60%);opacity:.6}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+  h1,h2{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;line-height:1.1}
+  header{padding:18px 0;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
+  header nav a{font-size:13px;color:var(--ink-soft);text-decoration:none;margin-left:14px}
+  main{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:28px 24px;margin:14px 0 24px;box-shadow:0 8px 28px rgba(27,24,19,.06)}
+  main h1{font-size:30px;font-weight:800;margin-bottom:6px}
+  .lead{color:var(--ink-soft);font-size:15px;margin-bottom:20px}
+  main h2{font-size:19px;font-weight:700;margin:24px 0 8px}
+  main p{margin-bottom:14px;font-size:15.5px;color:#2c2820}
+  main ul{margin:0 0 14px 20px;font-size:15.5px;color:#2c2820}
+  main li{margin-bottom:6px}
+  main a{color:var(--green);font-weight:600}
+  .cta{display:inline-block;margin-top:8px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:11px;font-size:14.5px}
+  footer{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--ink-soft)}
+  footer .flinks{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px}
+  footer .flinks a{font-weight:600;text-decoration:none;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/"><span class="dot"></span>MoveAbroad</a>
+    <nav><a href="/">Calculator</a><a href="/disclaimer/">Disclosure</a></nav>
+  </header>
+
+  <main>
+    <h1>About this site</h1>
+    <p class="lead">MoveAbroadCalculator.com helps people in India understand the real financial picture of moving to the UAE — before they sign an offer or book a flight.</p>
+
+    <h2>Why we built it</h2>
+    <p>Every year thousands of Indians receive a job offer in Dubai or Abu Dhabi and immediately ask the same question: <em>"This salary sounds big, but how much will I actually save?"</em> The headline AED figure means little until you subtract rent, food, transport, and convert what's left back into rupees.</p>
+    <p>Most people end up guessing, or piecing together numbers from random forum posts. We built a single, honest tool that does the maths in seconds so you can make an informed decision instead of an emotional one.</p>
+
+    <h2>What the calculator does</h2>
+    <ul>
+      <li>Shows your tax-free take-home pay (the UAE has no personal income tax)</li>
+      <li>Estimates your realistic monthly savings after Dubai living costs</li>
+      <li>Converts everything into Indian rupees at a rate you control</li>
+      <li>Calculates your end-of-service gratuity under UAE labour law</li>
+      <li>Compares your potential savings against your current India salary</li>
+    </ul>
+
+    <h2>How we keep it honest</h2>
+    <p>All living costs and the exchange rate are editable, because everyone's situation is different. A single person sharing a room and a family renting a flat have completely different numbers, and we'd rather you adjust the figures than trust a one-size-fits-all guess.</p>
+    <p>This is an estimation tool, not professional advice. We explain our assumptions openly and encourage you to verify anything important with your employer and a qualified advisor.</p>
+
+    <h2>Who runs it</h2>
+    <p>This is an independent project built and maintained by a small team that follows the India–Gulf migration space. We are not a recruitment agency, bank, or money-transfer service, and we don't charge users anything. The site is supported by advertising and affiliate partnerships, which you can read about in our <a href="/disclaimer/">disclosure</a>.</p>
+
+    <h2>Get in touch</h2>
+    <p>Questions, corrections, or a feature you'd like? Email us at <a href="mailto:hello@moveabroadcalculator.com">hello@moveabroadcalculator.com</a>.</p>
+
+    <a class="cta" href="/">← Try the calculator</a>
+  </main>
+
+  <footer>
+    <div class="flinks"><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a></div>
+    <p>© <span id="yr"></span> MoveAbroadCalculator.com</p>
+  </footer>
+</div>
+<script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>
+
