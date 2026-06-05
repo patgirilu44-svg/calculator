@@ -368,6 +368,25 @@
   calc();
 })();
 </script>
+<script>
+(function(){
+  var rateEl=document.getElementById('rate');
+  if(!rateEl)return;
+  var hint=null;
+  try{var lab=rateEl.closest('.inputrow').previousElementSibling;if(lab)hint=lab.querySelector('.hint');}catch(e){}
+  fetch('https://open.er-api.com/v6/latest/AED')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var inr=d&&d.rates&&d.rates.INR;
+      if(inr){
+        rateEl.value=inr.toFixed(2);
+        rateEl.dispatchEvent(new Event('input',{bubbles:true}));
+        if(hint)hint.textContent='(live · edit)';
+      }
+    })
+    .catch(function(){});
+})();
+</script>
 </body>
 </html>
 
